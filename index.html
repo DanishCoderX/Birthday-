@@ -909,4 +909,442 @@
       }
 
       .slideshow-wrapper {
-        max-
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== LANDING / ENVELOPE ===== -->
+  <div id="landing">
+    <div class="landing-content">
+      <h2>You have a special message...</h2>
+
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope">
+          <div class="letter" id="letter">
+            <p>You are invited to<br><strong>a Birthday Celebration!</strong><br>🎂🎉</p>
+          </div>
+          <div class="envelope-body"></div>
+          <div class="envelope-flap" id="envelopeFlap"></div>
+        </div>
+      </div>
+
+      <button class="start-btn" id="startBtn">Open My Surprise 🎁</button>
+    </div>
+  </div>
+
+  <!-- ===== FALLING HEARTS ===== -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <!-- ===== STARS ===== -->
+  <div class="stars-container" id="starsContainer"></div>
+
+  <!-- ===== MUSIC BUTTON ===== -->
+  <button class="music-btn" id="musicBtn">🎵</button>
+  <audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content" id="mainContent">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="age-badge" id="ageBadge">21</div>
+        <h1>Happy Birthday!</h1>
+        <span class="name" id="heroName">Your Name</span>
+        <p class="date-text" id="dateText">🎂 January 1, 2025</p>
+        <span class="cake-emoji">🎂</span>
+        <div class="scroll-hint">
+          Scroll down for your surprise
+          <span>↓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOVE LETTER -->
+    <section class="letter-section reveal">
+      <h2 class="section-title">A Letter For You 💌</h2>
+      <div class="letter-card">
+        <div class="greeting" id="letterGreeting">Dear Your Name,</div>
+        <div class="msg" id="letterMsg"></div>
+        <div class="sign" id="letterSign">— With all my love ❤️</div>
+      </div>
+    </section>
+
+    <!-- PHOTO SLIDESHOW -->
+    <section class="reveal">
+      <h2 class="section-title">Our Beautiful Memories 📸</h2>
+      <div class="slideshow-wrapper" id="slideshow">
+        <button class="slide-nav prev" id="prevSlide">‹</button>
+        <button class="slide-nav next" id="nextSlide">›</button>
+      </div>
+      <div class="slide-controls" id="slideDots"></div>
+    </section>
+
+    <!-- QUALITIES -->
+    <section class="reveal">
+      <h2 class="section-title">Why You Are Special ✨</h2>
+      <div class="qualities" id="qualitiesGrid"></div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="reveal">
+      <h2 class="section-title">Our Journey Together 💫</h2>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <!-- CANDLE BLOW -->
+    <section class="candle-section reveal">
+      <h2 class="section-title">Make a Wish 🕯️</h2>
+      <p style="opacity:0.8;margin-bottom:10px;">Close your eyes, make a wish, then blow the candles!</p>
+      <div class="candles-row" id="candlesRow"></div>
+      <button class="blow-btn" id="blowBtn">🌬️ Blow the Candles</button>
+      <div class="blow-message" id="blowMessage">May all your wishes come true! ✨🌟</div>
+    </section>
+
+    <!-- AGE COUNTER -->
+    <section class="counter-section reveal">
+      <h2 class="section-title">You've Been Amazing For</h2>
+      <div class="counter-grid" id="counterGrid"></div>
+    </section>
+
+    <!-- SURPRISE -->
+    <section class="surprise-section reveal">
+      <h2 class="section-title">One Last Surprise 🎁</h2>
+      <div class="surprise-box" id="surpriseBox">
+        <span class="bow">🎀</span>
+        <div class="box-lid" id="boxLid"></div>
+        <div class="box-base"></div>
+        <div class="ribbon-v2"></div>
+        <div class="ribbon-h2"></div>
+      </div>
+      <div class="surprise-reveal" id="surpriseReveal">
+        <p class="big-wish" id="finalWish"></p>
+        <p class="wish-text" id="finalText"></p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer reveal">
+      <h2>Happy Birthday Once More!</h2>
+      <span class="big-heart">💖</span>
+      <p>Made with love, just for you ❤️</p>
+    </div>
+  </div>
+
+  <script>
+    // ╔══════════════════════════════════════════════╗
+    // ║         🎂 CUSTOMIZE EVERYTHING HERE         ║
+    // ╚══════════════════════════════════════════════╝
+
+    const CONFIG = {
+      name: "Aisha",
+      age: 21,
+      date: "January 1, 2025",
+
+      // The love letter
+      letterMessage: `Today is your special day, and I just want you to know how incredibly grateful I am to have you in my life. Your smile lights up every room, your laughter is the sweetest melody, and your heart is the purest I've ever known.
+
+Every moment with you is a treasure, and I hope this new chapter of your life brings you nothing but joy, love, success, and endless happiness. You deserve the whole world and more.
+
+Happy Birthday, my wonderful person! May all your dreams come true today and always. 🎂💖✨`,
+
+      // Photos for slideshow (replace with your own images)
+      photos: [
+        { src: "https://placehold.co/600x800/ffc2d1/7a284b?text=Photo+1", caption: "Beautiful moments together 💕" },
+        { src: "https://placehold.co/600x800/fde2e4/7a284b?text=Photo+2", caption: "Smiles that light up my world ✨" },
+        { src: "https://placehold.co/600x800/cdb4db/442b48?text=Photo+3", caption: "Memories I'll cherish forever 💖" },
+        { src: "https://placehold.co/600x800/bde0fe/2b4570?text=Photo+4", caption: "Every day is better with you 🌸" },
+        { src: "https://placehold.co/600x800/a2d2ff/2b4570?text=Photo+5", caption: "My favorite person 💝" }
+      ],
+
+      // Qualities / Wishes cards
+      qualities: [
+        { icon: "💎", title: "Beautiful Soul", desc: "Your inner beauty shines brighter than any star in the sky." },
+        { icon: "😄", title: "Amazing Smile", desc: "Your smile has the power to make the whole world a better place." },
+        { icon: "💪", title: "Incredibly Strong", desc: "Your strength and courage inspire everyone around you." },
+        { icon: "🧠", title: "Brilliant Mind", desc: "Your intelligence and wisdom never cease to amaze me." },
+        { icon: "💛", title: "Kind Heart", desc: "Your kindness touches every life you come across." },
+        { icon: "⭐", title: "One in a Million", desc: "There's truly no one in this world quite like you." }
+      ],
+
+      // Timeline / memories
+      timeline: [
+        { year: "The Day We Met", text: "The universe brought us together and my life changed forever. ✨" },
+        { year: "First Memories", text: "Every laugh, every talk, every shared moment became a cherished memory. 💕" },
+        { year: "Growing Together", text: "Through thick and thin, our bond only grew stronger and more beautiful. 🌱" },
+        { year: "Today", text: "Celebrating YOU and all the magic you bring into this world! 🎂🎉" }
+      ],
+
+      // Final surprise message
+      finalWish: "You Are My Greatest Gift 💝",
+      finalText: "I hope this little page brought a smile to your face. You mean the world to me, and I want you to always remember how special, loved, and appreciated you are. Here's to another amazing year of your beautiful life! Happy Birthday! 🎂🌟💖",
+
+      // Sign-off for letter
+      signOff: "— With all my love ❤️"
+    };
+
+    // ╔══════════════════════════════════════════════╗
+    // ║          🚀 ENGINE (don't edit below)        ║
+    // ╚══════════════════════════════════════════════╝
+
+    // ----- Populate Content -----
+    document.getElementById("heroName").textContent = CONFIG.name;
+    document.getElementById("ageBadge").textContent = CONFIG.age;
+    document.getElementById("dateText").textContent = `🎂 ${CONFIG.date}`;
+    document.getElementById("letterGreeting").textContent = `Dear ${CONFIG.name},`;
+    document.getElementById("letterSign").textContent = CONFIG.signOff;
+    document.getElementById("finalWish").textContent = CONFIG.finalWish;
+    document.getElementById("finalText").textContent = CONFIG.finalText;
+
+    // ----- Stars -----
+    const starsCont = document.getElementById("starsContainer");
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement("div");
+      s.className = "star";
+      s.style.left = `${Math.random() * 100}%`;
+      s.style.top = `${Math.random() * 100}%`;
+      s.style.animationDelay = `${Math.random() * 4}s`;
+      s.style.animationDuration = `${2 + Math.random() * 3}s`;
+      const size = 1 + Math.random() * 3;
+      s.style.width = `${size}px`;
+      s.style.height = `${size}px`;
+      starsCont.appendChild(s);
+    }
+
+    // ----- Hearts Rain -----
+    const heartsCont = document.getElementById("heartsContainer");
+    const heartSymbols = ["♥", "💕", "💖", "💗", "💝", "❤️", "🩷"];
+
+    function spawnHeart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      h.style.left = `${Math.random() * 100}%`;
+      h.style.fontSize = `${12 + Math.random() * 20}px`;
+      h.style.animationDuration = `${5 + Math.random() * 6}s`;
+      h.style.animationDelay = `${Math.random() * 2}s`;
+      heartsCont.appendChild(h);
+      setTimeout(() => h.remove(), 12000);
+    }
+
+    setInterval(spawnHeart, 400);
+
+    // ----- Envelope -----
+    const envelopeWrapper = document.getElementById("envelopeWrapper");
+    const envelopeFlap = document.getElementById("envelopeFlap");
+    const letter2 = document.getElementById("letter");
+    const startBtn = document.getElementById("startBtn");
+    const landing = document.getElementById("landing");
+    const mainContent = document.getElementById("mainContent");
+
+    envelopeWrapper.addEventListener("click", () => {
+      envelopeFlap.classList.add("open");
+      setTimeout(() => letter2.classList.add("pop"), 500);
+    });
+
+    startBtn.addEventListener("click", () => {
+      landing.classList.add("hide");
+      mainContent.classList.add("show");
+      createConfetti(200);
+      startTypingLetter();
+
+      try { document.getElementById("bgMusic").play(); } catch (e) {}
+    });
+
+    // ----- Typing Letter -----
+    function startTypingLetter() {
+      const msgEl = document.getElementById("letterMsg");
+      const text = CONFIG.letterMessage;
+      let i = 0;
+      msgEl.textContent = "";
+      const timer = setInterval(() => {
+        msgEl.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(timer);
+      }, 22);
+    }
+
+    // ----- Photo Slideshow -----
+    const slideshow = document.getElementById("slideshow");
+    const slideDots = document.getElementById("slideDots");
+    let currentSlide = 0;
+
+    CONFIG.photos.forEach((photo, idx) => {
+      const slide = document.createElement("div");
+      slide.className = `slide ${idx === 0 ? "active" : ""}`;
+      slide.innerHTML = `
+        <img src="${photo.src}" alt="Memory ${idx + 1}" />
+        <div class="slide-caption">${photo.caption}</div>
+      `;
+      slideshow.appendChild(slide);
+
+      const dot = document.createElement("button");
+      dot.className = `slide-dot ${idx === 0 ? "active" : ""}`;
+      dot.addEventListener("click", () => goToSlide(idx));
+      slideDots.appendChild(dot);
+    });
+
+    function goToSlide(idx) {
+      document.querySelectorAll(".slide").forEach(s => s.classList.remove("active"));
+      document.querySelectorAll(".slide-dot").forEach(d => d.classList.remove("active"));
+
+      currentSlide = idx;
+      document.querySelectorAll(".slide")[idx].classList.add("active");
+      document.querySelectorAll(".slide-dot")[idx].classList.add("active");
+    }
+
+    document.getElementById("prevSlide").addEventListener("click", () => {
+      goToSlide((currentSlide - 1 + CONFIG.photos.length) % CONFIG.photos.length);
+    });
+
+    document.getElementById("nextSlide").addEventListener("click", () => {
+      goToSlide((currentSlide + 1) % CONFIG.photos.length);
+    });
+
+    // Auto slideshow
+    setInterval(() => {
+      goToSlide((currentSlide + 1) % CONFIG.photos.length);
+    }, 4000);
+
+    // ----- Qualities -----
+    const qualGrid = document.getElementById("qualitiesGrid");
+    CONFIG.qualities.forEach(q => {
+      qualGrid.innerHTML += `
+        <div class="quality-card">
+          <div class="icon">${q.icon}</div>
+          <h3>${q.title}</h3>
+          <p>${q.desc}</p>
+        </div>
+      `;
+    });
+
+    // ----- Timeline -----
+    const timelineEl = document.getElementById("timeline");
+    CONFIG.timeline.forEach(t => {
+      timelineEl.innerHTML += `
+        <div class="timeline-item">
+          <div class="year">${t.year}</div>
+          <p>${t.text}</p>
+        </div>
+      `;
+    });
+
+    // ----- Candles -----
+    const candlesRow = document.getElementById("candlesRow");
+    const numCandles = Math.min(CONFIG.age, 30);
+
+    for (let i = 0; i < numCandles; i++) {
+      candlesRow.innerHTML += `
+        <div class="candle">
+          <div class="flame" id="flame${i}"></div>
+          <div class="candle-stick"></div>
+        </div>
+      `;
+    }
+
+    document.getElementById("blowBtn").addEventListener("click", () => {
+      for (let i = 0; i < numCandles; i++) {
+        setTimeout(() => {
+          document.getElementById(`flame${i}`).classList.add("off");
+        }, i * 80);
+      }
+      setTimeout(() => {
+        document.getElementById("blowMessage").style.display = "block";
+        createConfetti(250);
+      }, numCandles * 80 + 300);
+    });
+
+    // ----- Age Counter -----
+    const counterGrid = document.getElementById("counterGrid");
+    const ageYears = CONFIG.age;
+    const counters = [
+      { number: ageYears, label: "Years" },
+      { number: ageYears * 12, label: "Months" },
+      { number: ageYears * 52, label: "Weeks" },
+      { number: ageYears * 365, label: "Days" },
+      { number: (ageYears * 365 * 24).toLocaleString(), label: "Hours" }
+    ];
+
+    counters.forEach(c => {
+      counterGrid.innerHTML += `
+        <div class="counter-box">
+          <div class="number">${typeof c.number === 'number' ? c.number.toLocaleString() : c.number}</div>
+          <div class="label">${c.label} of being amazing</div>
+        </div>
+      `;
+    });
+
+    // ----- Surprise Box -----
+    const surpriseBox = document.getElementById("surpriseBox");
+    const boxLid = document.getElementById("boxLid");
+    const surpriseReveal = document.getElementById("surpriseReveal");
+
+    surpriseBox.addEventListener("click", () => {
+      boxLid.classList.add("opened");
+      setTimeout(() => {
+        surpriseReveal.style.display = "block";
+        createConfetti(300);
+      }, 600);
+    });
+
+    // ----- Music -----
+    const musicBtn = document.getElementById("musicBtn");
+    const bgMusic = document.getElementById("bgMusic");
+
+    musicBtn.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play().catch(() => {});
+      } else {
+        bgMusic.pause();
+      }
+    });
+
+    bgMusic.addEventListener("play", () => {
+      musicBtn.textContent = "⏸";
+      musicBtn.classList.add("playing");
+    });
+
+    bgMusic.addEventListener("pause", () => {
+      musicBtn.textContent = "🎵";
+      musicBtn.classList.remove("playing");
+    });
+
+    // ----- Confetti -----
+    function createConfetti(count = 150) {
+      const colors = ["#ff4d6d", "#ffd166", "#ffffff", "#7bdff2", "#c77dff", "#80ed99", "#ff6b9d", "#ffd700"];
+
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = `${Math.random() * 100}vw`;
+        piece.style.width = `${6 + Math.random() * 8}px`;
+        piece.style.height = `${10 + Math.random() * 14}px`;
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.borderRadius = Math.random() > 0.5 ? "2px" : "50%";
+        piece.style.animationDuration = `${2 + Math.random() * 3}s`;
+        piece.style.animationDelay = `${Math.random() * 0.5}s`;
+
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5500);
+      }
+    }
+
+    // ----- Scroll Reveal -----
+    const revealElements = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
